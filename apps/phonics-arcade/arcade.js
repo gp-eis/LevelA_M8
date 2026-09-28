@@ -1,4 +1,4 @@
-import { getContent, shuffle } from "./content.js?deploy=20260929-asset-fix-5";
+import { getContent, shuffle } from "./content.js?deploy=20260929-level-a-audit-6";
 
 const params = new URLSearchParams(location.search);
 const level = ["a", "b", "c"].includes(params.get("level")) ? params.get("level") : "a";
@@ -80,7 +80,7 @@ document.body.classList.toggle("game-falling", game === "falling");
 document.body.style.setProperty("--scene", `url("${theme.scene}")`);
 const navigation = document.querySelector("#arcade-navigation");
 const mainHref = `/LevelA_M8/apps/level-${level}/index.html`;
-const weekHref = level === "a" ? `/LevelA_M8/apps/level-a/week-${week}.html#games-card` : `/LevelA_M8/apps/level-${level}/week-${week}/`;
+const weekHref = level === "a" ? `/LevelA_M8/apps/level-a/week-${week}.html#games-card` : `https://pub-aa69c309a877446c857c4f2564279578.r2.dev/language-m8/apps/level-${level}/week-${week}`;
 navigation.setAttribute("data-main-href", mainHref);
 navigation.setAttribute("data-week-href", weekHref);
 navigation.setAttribute("data-section-href", safeReturn());
