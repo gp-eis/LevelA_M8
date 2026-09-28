@@ -1,5 +1,5 @@
-import { hideNextAction, revealNextAction } from "../../assets/navigation/gp-navigation.js?v=20260917-c&deploy=20260929-level-a-audit-6";
-import { playCorrectSound, playWrongSound } from "../../assets/navigation/gp-sounds.js?v=20260921-1&deploy=20260929-level-a-audit-6";
+import { hideNextAction, revealNextAction } from "../../assets/navigation/gp-navigation.js?v=20260917-c&deploy=20260929-level-a-games-audit-7";
+import { playCorrectSound, playWrongSound } from "../../assets/navigation/gp-sounds.js?v=20260921-1&deploy=20260929-level-a-games-audit-7";
 
 const page = Number(document.body.dataset.page);
 const pages = [2, 3, 4, 5];

@@ -1,4 +1,4 @@
-import { playCorrectSound, playWrongSound } from "../../assets/navigation/gp-sounds.js?v=20260921-1&deploy=20260929-level-a-audit-6";
+import { playCorrectSound, playWrongSound } from "../../assets/navigation/gp-sounds.js?v=20260921-1&deploy=20260929-level-a-games-audit-7";
 
 const app = document.querySelector("[data-horse-label]");
 const words = ["mane", "hoof", "chest", "muzzle"];

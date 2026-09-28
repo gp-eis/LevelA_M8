@@ -1,4 +1,4 @@
-import { PAGE_02_MEDIA } from './page-02-media-manifest.js?v=20260903-1&deploy=20260929-level-a-audit-6';
+import { PAGE_02_MEDIA } from './page-02-media-manifest.js?v=20260903-1&deploy=20260929-level-a-games-audit-7';
 
 const State = Object.freeze({
   WAITING_START: 'WAITING_START',

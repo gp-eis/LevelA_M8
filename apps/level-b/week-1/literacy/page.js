@@ -1,4 +1,4 @@
-import { revealNextAction, hideNextAction } from "../../assets/navigation/gp-navigation.js?v=20260902-8&deploy=20260929-level-a-audit-6";
+import { revealNextAction, hideNextAction } from "../../assets/navigation/gp-navigation.js?v=20260902-8&deploy=20260929-level-a-games-audit-7";
 
 const page = Number(document.body.dataset.page);
 const configs = {

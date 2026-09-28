@@ -1,4 +1,4 @@
-import '../navigation/gp-sounds.js?deploy=20260929-level-a-audit-6';
+import '../navigation/gp-sounds.js?deploy=20260929-level-a-games-audit-7';
 
 const tone = (right) => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;

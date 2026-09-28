@@ -1,4 +1,4 @@
-import { getContent, shuffle } from "./content.js?deploy=20260929-level-a-audit-6";
+import { getContent, shuffle } from "./content.js?deploy=20260929-level-a-games-audit-7";
 
 const params = new URLSearchParams(location.search);
 const level = ["a", "b", "c"].includes(params.get("level")) ? params.get("level") : "a";

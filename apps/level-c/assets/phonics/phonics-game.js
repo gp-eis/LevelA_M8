@@ -3,7 +3,7 @@ import {
   phonicsSets,
   shuffle,
   weekFocus,
-} from "./word-data.js?deploy=20260929-level-a-audit-6";
+} from "./word-data.js?deploy=20260929-level-a-games-audit-7";
 
 const app = document.querySelector("#game-app");
 const gameType = document.body.dataset.game;
