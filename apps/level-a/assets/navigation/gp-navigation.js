@@ -1,6 +1,6 @@
-import './us-english-speech.js?v=20260928-1&deploy=20260929-level-a-games-audit-7';
-import './gp-sounds.js?v=20260911-1&deploy=20260929-level-a-games-audit-7';
-import '/LevelA_M8/apps/activity-focus.js?v=20260923-center-all-v2&deploy=20260929-level-a-games-audit-7';
+import './us-english-speech.js?v=20260928-1&deploy=20260929-level-ac-reading-13';
+import './gp-sounds.js?v=20260911-1&deploy=20260929-level-ac-reading-13';
+import '/LevelA_M8/apps/activity-focus.js?v=20260923-center-all-v2&deploy=20260929-level-ac-reading-13';
 
 class GpNavigation extends HTMLElement {
   connectedCallback() {
@@ -8,6 +8,39 @@ class GpNavigation extends HTMLElement {
     const weekHref = getContextualWeekHref(this.dataset.weekHref || mainHref, this.dataset.trail || "");
     let previousHref = this.dataset.previousHref || "";
     let nextHref = this.dataset.nextHref || "";
+    const current = new URL(window.location.href);
+    const path = current.pathname.toLowerCase();
+    const params = current.searchParams;
+    const isGamesPage = /\/level-a\/games\//.test(path);
+    const isPhonicsArcade = /\/phonics-arcade\/index\.html$/.test(path);
+    const isPhonicsList = /\/level-a\/games\/phonics\.html$/.test(path);
+    const isPhonicsGame = /\/level-a\/games\/phonics-[^/]+\.html$/.test(path);
+    const isGamesList = /\/level-a\/games\/(?:index|week-[2-4])\.html$/.test(path);
+    const weekFromQuery = params.get("week")?.match(/^[1-4]$/)?.[0];
+    const weekFromTrail = (this.dataset.trail || "").match(/Week\s+([1-4])/i)?.[1];
+    const weekFromHref = (this.dataset.weekHref || "").match(/week-([1-4])/i)?.[1];
+    const week = weekFromQuery || weekFromTrail || weekFromHref || "1";
+    const origin = params.get("from") === "phonics" ? "phonics" : "games";
+    const gamesHref = week === "1" ? "index.html" : `week-${week}.html`;
+    let contextHref = "";
+    let contextLabel = "";
+    if (isPhonicsArcade) {
+      contextHref = this.dataset.sectionHref || params.get("return") || "";
+      contextLabel = "Phonics Games";
+    } else if (isPhonicsList) {
+      contextHref = origin === "phonics" ? `../phonics/week-${week}.html#lesson-focus` : gamesHref;
+      contextLabel = origin === "phonics" ? "Phonics Lesson" : "All Games";
+    } else if (isPhonicsGame) {
+      contextHref = `phonics.html?week=${week}&from=${origin}`;
+      contextLabel = "Phonics Games";
+    } else if (isGamesPage && !isGamesList) {
+      contextHref = gamesHref;
+      contextLabel = "All Games";
+    }
+    if (contextHref) {
+      previousHref = "";
+      nextHref = "";
+    }
     const literacyStep = getLiteracyStep();
     if (literacyStep) {
       previousHref = literacyStep.previousHref;
@@ -21,7 +54,7 @@ class GpNavigation extends HTMLElement {
     const pageMain = document.querySelector("main");
     if (pageMain && !pageMain.id) pageMain.id = "gp-main-content";
     const mainTarget = pageMain?.id || "gp-main-content";
-    const logoHref = new URL("https://pub-aa69c309a877446c857c4f2564279578.r2.dev/language-m8/apps/level-a/assets/ui/giiip-eis-logo.webp", import.meta.url).href;
+    const logoHref = new URL("https://pub-aa69c309a877446c857c4f2564279578.r2.dev/language-m8/apps/level-a/assets/ui/giiip-eis-logo.webp?asset=693f36046438", import.meta.url).href;
     if (!document.querySelector(".site-logo-bar")) {
       const logoBar = document.createElement("div");
       logoBar.className = "site-logo-bar";
@@ -33,6 +66,7 @@ class GpNavigation extends HTMLElement {
       <div class="gp-navigation__links">
         <a class="gp-navigation__main" data-nav-kind="main" href="${mainHref}" aria-label="Main Home" title="Main Home"><span class="gp-navigation__icon" aria-hidden="true">🏠</span><span>Main Home</span></a>
         <a class="gp-navigation__week" data-nav-kind="week" href="${weekHref}" aria-label="Week Home" title="Week Home"><span class="gp-navigation__icon" aria-hidden="true">📅</span><span>Week Home</span></a>
+        ${contextHref ? `<a class="gp-navigation__section gp-navigation__context" href="${contextHref}" aria-label="${contextLabel}" title="${contextLabel}"><span class="gp-navigation__icon" aria-hidden="true">←</span><span>${contextLabel}</span></a>` : ""}
       </div>
       <div class="gp-navigation__stepper">
         ${previousHref ? `<a class="gp-navigation__previous" href="${previousHref}" aria-label="Previous page" title="Previous page">← <span>Previous</span></a>` : ""}
@@ -56,6 +90,10 @@ class GpNavigation extends HTMLElement {
           ? homeLinks.main
           : null;
     currentHome?.setAttribute("aria-current", "page");
+
+    if (contextHref) {
+      document.querySelectorAll("main .baseline-home, main .match-home, main .game-list-back").forEach(element => element.remove());
+    }
   }
 }
 
@@ -290,18 +328,18 @@ export function hideNextAction(button) {
 }
 
 if (/\/phonics(?:\/|\.html)/i.test(location.pathname)) {
-  import("/LevelA_M8/apps/phonics-player.js?v=20260922-v2&deploy=20260929-level-a-games-audit-7");
+  import("/LevelA_M8/apps/phonics-player.js?v=20260922-v2&deploy=20260929-level-ac-reading-13");
 }
 
 if (/\/level-a\/literacy\/tpr\.html$/i.test(location.pathname)) {
   const style = document.createElement("link");
   style.rel = "stylesheet";
-      style.href = "/LevelA_M8/apps/week-song-player.css?v=20260927-2&deploy=20260929-level-a-games-audit-7";
+      style.href = "/LevelA_M8/apps/week-song-player.css?v=20260927-2&deploy=20260929-level-ac-reading-13";
   document.head.append(style);
-      import("/LevelA_M8/apps/week-song-player.js?v=20260927-4&deploy=20260929-level-a-games-audit-7");
+      import("/LevelA_M8/apps/week-song-player.js?v=20260927-4&deploy=20260929-level-ac-reading-13");
 }
 
-if (/\/level-a\/literacy\//i.test(location.pathname) && !/\/tpr\.html$/i.test(location.pathname)) {
+if (/\/level-a\/literacy\//i.test(location.pathname) && !/(?:tpr|conversation|flashcards(?:-week-[1-4])?)\.html$/i.test(location.pathname)) {
   const addWeekSongLink = () => {
     const pathnameWeek = location.pathname.match(/week-([234])/i)?.[1];
     const weekHref = document.querySelector("gp-navigation")?.dataset.weekHref || "";
@@ -328,3 +366,5 @@ if (/\/level-a\/literacy\//i.test(location.pathname) && !/\/tpr\.html$/i.test(lo
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", addWeekSongLink, { once: true });
   else addWeekSongLink();
 }
+
+import("/LevelA_M8/apps/lesson-video-player.js?v=20260929-2&deploy=20260929-level-ac-reading-13");
